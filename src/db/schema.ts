@@ -76,3 +76,28 @@ export const encryptedVaultItemsRelations = relations(encryptedVaultItems, ({ on
     references: [encryptedVaults.vaultId],
   }),
 }));
+
+/**
+ * BLACKTOWER OS™ Ecosystem Projects & Preserved Internal Workspaces Table.
+ * Supports safe, reversible visibility classification ('primary_showcase' vs 'internal_archive')
+ * so internal Notion planning links are preserved in the backend without cluttering the primary product showcase.
+ */
+export const portalProjects = pgTable('portal_projects', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  indexLabel: text('index_label').notNull(),
+  name: text('name').notNull(),
+  tagline: text('tagline').notNull(),
+  description: text('description').notNull(),
+  category: text('category').notNull(),
+  visibility: text('visibility').notNull().default('internal_archive'),
+  completionStatus: text('completion_status').notNull().default('INTERNAL_WORKSPACE'),
+  authorizationStatus: text('authorization_status').notNull().default('AUTHORIZED'),
+  externalUrl: text('external_url').notNull().default(''),
+  internalRoute: text('internal_route').notNull().default(''),
+  actionLabel: text('action_label').notNull().default('Open'),
+  iconKey: text('icon_key').notNull().default('layout-grid'),
+  displayOrder: integer('display_order').notNull().default(100),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+

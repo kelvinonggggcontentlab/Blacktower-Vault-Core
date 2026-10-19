@@ -2,7 +2,15 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ArrowUpRight, Layers, ShieldCheck, Zap } from 'lucide-react';
+import Link from 'next/link';
+import {
+  ArrowUpRight,
+  CheckCircle2,
+  Layers,
+  Lock,
+  ShieldCheck,
+  Zap,
+} from 'lucide-react';
 import type { PortalSessionUser } from '@/lib/portal/portal-auth';
 import AccessPanel from './AccessPanel';
 import { BlacktowerBrand, BlacktowerFooter } from './PortalChrome';
@@ -19,17 +27,26 @@ export default function PortalLandingView({
   onUserChange,
 }: PortalLandingViewProps) {
   return (
-    <div className="flex flex-col min-h-svh bg-[oklch(10.5%_0.003_160)] text-[oklch(95.5%_0.004_150)]">
-      <header className="border-b border-[oklch(29%_0.008_160)] flex items-center justify-between h-[76px] px-[6%] min-[761px]:h-[92px] min-[761px]:px-[5%]">
-        <BlacktowerBrand />
-        <span className="font-[family-name:var(--font-mono)] font-normal text-[oklch(64%_0.006_160)] flex items-center gap-0 text-[0px] min-[761px]:gap-[17px] min-[761px]:text-[9px]">
-          PRIVATE INFRASTRUCTURE{' '}
-          <span className="bg-[oklch(87.2%_0.283_140.5)] w-[5px] h-[5px] shadow-[0_0_12px_oklch(87.2%_0.283_140.5/0.32)] rounded-full shrink-0 inline-block" />
-        </span>
+    <div className="flex flex-col min-h-svh bg-[#0B0F17] text-slate-100">
+      <header className="border-b border-slate-800/80 bg-[#0B0F17]/95 backdrop-blur-md flex items-center justify-between h-[72px] px-4 sm:px-8 sticky top-0 z-30">
+        <BlacktowerBrand subtitle="ECOSYSTEM GATEWAY" />
+        <div className="flex items-center gap-4">
+          <span className="hidden md:inline-flex font-[family-name:var(--font-mono)] font-normal text-slate-400 items-center gap-2.5 text-[10px] tracking-wider">
+            PRIVATE INFRASTRUCTURE
+            <span className="bg-sky-400 w-1.5 h-1.5 shadow-[0_0_10px_rgba(56,189,248,0.6)] rounded-full shrink-0 inline-block" />
+          </span>
+          <Link
+            href="/vault"
+            className="px-3 py-1.5 rounded-lg border border-slate-800 hover:border-sky-500/50 bg-[#111827] text-xs font-medium text-slate-200 hover:text-white inline-flex items-center gap-1.5 transition-colors whitespace-nowrap"
+          >
+            <Lock size={13} className="text-sky-400" />
+            <span>BLACKTOWER VAULT™</span>
+          </Link>
+        </div>
       </header>
 
-      <main>
-        <section className="relative isolate flex items-center min-h-auto min-[761px]:min-h-[680px] min-[1500px]:min-h-[740px] overflow-hidden">
+      <main className="flex-1 flex flex-col">
+        <section className="relative isolate flex items-center flex-1 min-h-auto min-[761px]:min-h-[660px] overflow-hidden">
           <Image
             src="/assets/blacktower-monolith.jpg"
             alt=""
@@ -37,66 +54,97 @@ export default function PortalLandingView({
             height={1088}
             priority
             referrerPolicy="no-referrer"
-            className="object-cover object-[69%_center] min-[761px]:object-center opacity-55 min-[761px]:opacity-100 -z-30 w-full h-[520px] min-[761px]:h-full absolute inset-0 pointer-events-none"
+            className="object-cover object-[69%_center] min-[761px]:object-center opacity-35 min-[761px]:opacity-65 -z-30 w-full h-[520px] min-[761px]:h-full absolute inset-0 pointer-events-none"
           />
           <div
             aria-hidden="true"
-            className="bg-[linear-gradient(90deg,oklch(10.5%_0.003_160)_0%,oklch(10.5%_0.003_160/0.77)_36%,oklch(10.5%_0.003_160/0.09)_68%,oklch(10.5%_0.003_160/0.3)_100%)] -z-20 absolute inset-0 pointer-events-none"
+            className="bg-[linear-gradient(90deg,#0B0F17_0%,rgba(11,15,23,0.88)_42%,rgba(11,15,23,0.45)_72%,rgba(11,15,23,0.75)_100%)] -z-20 absolute inset-0 pointer-events-none"
           />
           <div
             aria-hidden="true"
-            className="opacity-11 -z-10 bg-[linear-gradient(oklch(29%_0.008_160)_1px,transparent_1px),linear-gradient(90deg,oklch(29%_0.008_160)_1px,transparent_1px)] bg-[size:72px_72px] absolute inset-0 [mask-image:linear-gradient(90deg,black,transparent_65%)] pointer-events-none"
+            className="opacity-15 -z-10 bg-[linear-gradient(rgba(30,41,59,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(30,41,59,0.6)_1px,transparent_1px)] bg-[size:72px_72px] absolute inset-0 [mask-image:linear-gradient(90deg,black,transparent_65%)] pointer-events-none"
           >
-            <div className="bg-[oklch(87.2%_0.283_140.5)] opacity-40 h-[1px] absolute top-0 left-0 right-0" />
+            <div className="bg-sky-400 opacity-35 h-[1px] absolute top-0 left-0 right-0" />
           </div>
 
-          <div className="grid grid-cols-1 min-[761px]:grid-cols-[minmax(0,1fr)_350px] min-[1051px]:grid-cols-[minmax(0,1fr)_376px] items-center gap-[37px] min-[761px]:gap-[25px] min-[1051px]:gap-[45px] w-full max-w-[1440px] mx-auto pt-[36px] px-[6%] pb-[60px] min-[761px]:pt-[65px] min-[761px]:px-[5%] min-[761px]:pb-[78px] min-[1500px]:px-0">
+          <div className="grid grid-cols-1 min-[761px]:grid-cols-[minmax(0,1fr)_370px] min-[1051px]:grid-cols-[minmax(0,1fr)_400px] items-center gap-9 min-[761px]:gap-8 min-[1051px]:gap-12 w-full max-w-7xl mx-auto pt-9 px-4 sm:px-8 pb-14 min-[761px]:py-16">
             <div className="min-w-0">
-              <div className="font-[family-name:var(--font-mono)] font-normal text-[oklch(87.2%_0.283_140.5)] border border-[oklch(87.2%_0.283_140.5/0.2)] bg-[oklch(87.2%_0.283_140.5/0.03)] inline-flex items-center gap-[6px] min-[1051px]:gap-[9px] rounded-[3px] py-[9px] px-[11px] max-[360px]:text-[6px] text-[7px] min-[1051px]:text-[8px]">
-                <span className="bg-[oklch(87.2%_0.283_140.5)] w-[5px] h-[5px] shadow-[0_0_12px_oklch(87.2%_0.283_140.5/0.32)] rounded-full shrink-0 inline-block" />
-                SECURE ACCESS{' '}
-                <span className="text-[oklch(49%_0.007_160)]">•</span>{' '}
+              <div className="font-[family-name:var(--font-mono)] font-normal text-sky-400 border border-sky-500/30 bg-sky-500/10 inline-flex items-center gap-2 rounded-md py-1.5 px-3 text-[10px] tracking-wider">
+                <span className="bg-sky-400 w-1.5 h-1.5 shadow-[0_0_10px_rgba(56,189,248,0.6)] rounded-full shrink-0 inline-block" />
+                SECURE ACCESS <span className="text-slate-600">•</span>{' '}
                 AUTHORIZED USERS ONLY
               </div>
 
-              <p className="font-[family-name:var(--font-mono)] font-normal text-[oklch(64%_0.006_160)] flex items-center gap-[10px] mt-[33px] min-[761px]:mt-[43px] mb-[15px] text-[9px]">
-                <span className="bg-[oklch(87.2%_0.283_140.5)] w-[20px] h-[1px] shrink-0" />
-                THE NEXUS ECOSYSTEM
+              <p className="font-[family-name:var(--font-mono)] font-normal text-slate-400 flex items-center gap-2.5 mt-7 mb-3 text-[11px] tracking-wider">
+                <span className="bg-sky-400 w-5 h-[1px] shrink-0" />
+                THE BLACKTOWER™ ECOSYSTEM SHOWCASE
               </p>
 
-              <h1 className="font-[family-name:var(--font-display)] tracking-normal m-0 max-[360px]:text-[42px] text-[52px] min-[761px]:text-[48px] min-[1051px]:text-[66px] min-[1500px]:text-[84px] font-semibold leading-[1.02]">
-                BLACKTOWER
-                <span className="text-[oklch(87.2%_0.283_140.5)] flex items-center gap-[22px]">
-                  OS
+              <h1 className="font-[family-name:var(--font-display)] tracking-tight m-0 text-4xl sm:text-5xl min-[1051px]:text-6xl font-bold leading-[1.05] text-white">
+                BLACKTOWER{' '}
+                <span className="text-sky-400 inline-flex items-center gap-3">
+                  OS™
                   <span
                     aria-hidden="true"
-                    className="bg-[oklch(87.2%_0.283_140.5)] w-[14px] h-[14px] shadow-[0_0_12px_oklch(87.2%_0.283_140.5/0.32)] mt-[17px] inline-block"
+                    className="bg-sky-400 w-3 h-3 shadow-[0_0_12px_rgba(56,189,248,0.5)] inline-block rounded-[2px]"
                   />
                 </span>
               </h1>
 
-              <p className="font-[family-name:var(--font-mono)] text-[oklch(95.5%_0.004_150)] mt-[20px] text-[12px]">
-                PRIVATE COMMAND PORTAL
+              <p className="font-[family-name:var(--font-mono)] text-slate-200 mt-4 text-xs tracking-wider">
+                PRODUCT SHOWCASE &amp; PRIVATE COMMAND GATEWAY
               </p>
 
-              <p className="mt-[24px] min-[761px]:mt-[33px] text-[15px] min-[761px]:text-[17px] font-medium">
-                One gateway. Your entire ecosystem.
+              <p className="mt-5 text-base sm:text-lg font-semibold text-white">
+                One gateway. Completed, cryptographically verifiable systems.
               </p>
 
-              <p className="text-[oklch(64%_0.006_160)] mt-[13px] text-[12px] leading-[1.9]">
-                Intelligence. Operations. Everything connected.
-                <br />
-                Built for the way you move.
+              <p className="text-slate-300 mt-2.5 text-sm leading-relaxed max-w-xl">
+                Explore approved BLACKTOWER™ security applications and
+                zero-knowledge infrastructure—led by{' '}
+                <strong className="text-white font-semibold">
+                  BLACKTOWER VAULT™
+                </strong>
+                , our personal password and digital identity vault.
               </p>
 
-              <div className="font-[family-name:var(--font-mono)] font-normal text-[oklch(49%_0.007_160)] flex items-center gap-[11px] mt-[22px] min-[761px]:mt-[38px] text-[8px]">
+              {/* Flagship Completed Product Preview Strip */}
+              <div className="mt-6 p-4 rounded-xl bg-[#111827]/90 border border-slate-800 max-w-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                      <CheckCircle2 size={11} />
+                      COMPLETED &amp; APPROVED
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-400">
+                      BT-PROD-01
+                    </span>
+                  </div>
+                  <div className="text-sm font-bold text-white font-[family-name:var(--font-display)]">
+                    BLACKTOWER VAULT™ — Zero-Knowledge Vault
+                  </div>
+                  <p className="text-xs text-slate-400">
+                    Argon2id v1.3 · 4-Tier AES-256-GCM · Screen Exposure
+                    Protection · Cloud SQL Sync
+                  </p>
+                </div>
+                <Link
+                  href="/vault"
+                  className="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-sky-400 hover:text-sky-300 inline-flex items-center gap-1.5 shrink-0 self-start sm:self-center transition-colors whitespace-nowrap"
+                >
+                  <span>Explore Vault</span>
+                  <ArrowUpRight size={14} />
+                </Link>
+              </div>
+
+              <div className="font-[family-name:var(--font-mono)] font-normal text-slate-400 flex items-center gap-2.5 mt-6 text-[10px] tracking-wider">
                 <span
                   aria-hidden="true"
-                  className="text-[oklch(87.2%_0.283_140.5)] text-[18px] leading-none"
+                  className="text-sky-400 text-base leading-none font-bold"
                 >
                   +
                 </span>{' '}
-                ONE IDENTITY. TOTAL CONTROL.
+                SIMPLE OUTSIDE. BRUTAL SECURITY INSIDE.
               </div>
             </div>
 
@@ -106,38 +154,31 @@ export default function PortalLandingView({
               onUserChange={onUserChange}
             />
           </div>
-
-          <div
-            aria-hidden="true"
-            className="font-[family-name:var(--font-mono)] font-normal text-[oklch(49%_0.007_160)] flex justify-between text-[8px] absolute bottom-[21px] left-[5%] right-[5%] pointer-events-none"
-          >
-            BT / NEXUS <span>01 — PRIVATE NETWORK</span>
-          </div>
         </section>
 
         <section
           aria-label="The BLACKTOWER ecosystem"
-          className="border-y border-[oklch(29%_0.008_160)] bg-[oklch(10.5%_0.003_160)] block min-[761px]:flex items-center justify-between gap-[40px] py-[26px] px-[6%] min-[761px]:py-[30px] min-[761px]:px-[5%]"
+          className="border-t border-slate-800/80 bg-[#0B0F17] flex flex-col min-[761px]:flex-row items-start min-[761px]:items-center justify-between gap-6 py-6 px-4 sm:px-8 max-w-7xl w-full mx-auto"
         >
-          <div className="text-[oklch(49%_0.007_160)] flex items-center justify-between min-[761px]:justify-start gap-[23px] mb-[24px] min-[761px]:mb-0">
-            <span className="font-[family-name:var(--font-mono)] font-normal text-[8px]">
-              A CONNECTED ECOSYSTEM
+          <div className="text-slate-400 flex items-center gap-3">
+            <span className="font-[family-name:var(--font-mono)] font-normal text-[10px] tracking-wider">
+              APPROVED ECOSYSTEM ARCHITECTURE
             </span>
-            <ArrowUpRight size={18} />
+            <ArrowUpRight size={15} className="text-sky-400" />
           </div>
 
-          <div className="flex items-start min-[761px]:items-center justify-between min-[761px]:justify-start gap-[18px] min-[761px]:gap-[22px] min-[1051px]:gap-[55px]">
-            <div className="font-[family-name:var(--font-mono)] text-[oklch(64%_0.006_160)] flex flex-col min-[761px]:flex-row items-start min-[761px]:items-center gap-[10px] min-[761px]:gap-[11px] max-w-[90px] min-[761px]:max-w-none text-[7px] min-[761px]:text-[9px] leading-[1.8] min-[761px]:leading-normal">
-              <Zap className="w-[17px] h-[17px] stroke-[1.3px] text-[oklch(64%_0.006_160)] shrink-0" />
-              <span>NEXUS INTELLIGENCE</span>
+          <div className="flex flex-wrap items-center gap-6 sm:gap-10">
+            <div className="font-[family-name:var(--font-mono)] text-slate-300 flex items-center gap-2.5 text-[11px]">
+              <ShieldCheck className="w-4 h-4 text-sky-400 shrink-0" />
+              <span>ZERO-KNOWLEDGE VAULT</span>
             </div>
-            <div className="font-[family-name:var(--font-mono)] text-[oklch(64%_0.006_160)] flex flex-col min-[761px]:flex-row items-start min-[761px]:items-center gap-[10px] min-[761px]:gap-[11px] max-w-[90px] min-[761px]:max-w-none text-[7px] min-[761px]:text-[9px] leading-[1.8] min-[761px]:leading-normal">
-              <Layers className="w-[17px] h-[17px] stroke-[1.3px] text-[oklch(64%_0.006_160)] shrink-0" />
-              <span>UNIFIED OPERATIONS</span>
+            <div className="font-[family-name:var(--font-mono)] text-slate-300 flex items-center gap-2.5 text-[11px]">
+              <Layers className="w-4 h-4 text-sky-400 shrink-0" />
+              <span>4-TIER KEY HIERARCHY</span>
             </div>
-            <div className="font-[family-name:var(--font-mono)] text-[oklch(64%_0.006_160)] flex flex-col min-[761px]:flex-row items-start min-[761px]:items-center gap-[10px] min-[761px]:gap-[11px] max-w-[90px] min-[761px]:max-w-none text-[7px] min-[761px]:text-[9px] leading-[1.8] min-[761px]:leading-normal">
-              <ShieldCheck className="w-[17px] h-[17px] stroke-[1.3px] text-[oklch(64%_0.006_160)] shrink-0" />
-              <span>PRIVATE BY DESIGN</span>
+            <div className="font-[family-name:var(--font-mono)] text-slate-300 flex items-center gap-2.5 text-[11px]">
+              <Zap className="w-4 h-4 text-sky-400 shrink-0" />
+              <span>9 LIVE SECURITY TESTS</span>
             </div>
           </div>
         </section>

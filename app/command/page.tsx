@@ -19,8 +19,8 @@ export default function BlacktowerCommandPage() {
       const params = new URLSearchParams(window.location.search);
       if (params.get('autostart') === '1') {
         const demoOperator: PortalSessionUser = {
-          uid: 'bt-op-7f8a9c12',
-          email: 'kelvinong.private@outlook.my',
+          uid: 'bt-op-ed48f81c',
+          email: 'blackmaster.blacktower@blacktowermail.com',
           verifiedAt: new Date().toISOString(),
         };
         savePortalSession(demoOperator);
@@ -43,7 +43,7 @@ export default function BlacktowerCommandPage() {
     return (
       <main
         role="status"
-        className="flex min-h-svh items-center justify-center bg-[oklch(10.5%_0.003_160)] text-[oklch(95.5%_0.004_150)] text-sm"
+        className="flex min-h-svh items-center justify-center bg-[#0B0F17] text-slate-100 text-sm"
       >
         Verifying private access…
       </main>

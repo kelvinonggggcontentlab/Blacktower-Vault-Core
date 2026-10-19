@@ -23,17 +23,17 @@ export default function BlacktowerAuthPage() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-svh bg-[oklch(10.5%_0.003_160)] text-[oklch(95.5%_0.004_150)]">
-      <header className="border-b border-[oklch(29%_0.008_160)] flex items-center justify-between h-[76px] px-[6%] min-[761px]:h-[92px] min-[761px]:px-[5%]">
-        <BlacktowerBrand />
-        <span className="font-[family-name:var(--font-mono)] font-normal text-[oklch(64%_0.006_160)] flex items-center gap-0 text-[0px] min-[761px]:gap-[17px] min-[761px]:text-[9px]">
+    <div className="flex flex-col min-h-svh bg-[#0B0F17] text-slate-100">
+      <header className="border-b border-slate-800/80 flex items-center justify-between h-[72px] px-4 sm:px-8">
+        <BlacktowerBrand subtitle="PRIVATE ACCESS" />
+        <span className="hidden sm:inline-flex font-[family-name:var(--font-mono)] font-normal text-slate-400 items-center gap-2.5 text-[10px] tracking-wider">
           PRIVATE INFRASTRUCTURE
-          <span className="bg-[oklch(87.2%_0.283_140.5)] w-[5px] h-[5px] shadow-[0_0_12px_oklch(87.2%_0.283_140.5/0.32)] rounded-full shrink-0 inline-block" />
+          <span className="bg-sky-400 w-1.5 h-1.5 shadow-[0_0_10px_rgba(56,189,248,0.6)] rounded-full shrink-0 inline-block" />
         </span>
       </header>
 
       <main className="flex flex-1 items-center justify-center px-6 py-16">
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-md">
           <AccessPanel
             user={user}
             checking={checking}

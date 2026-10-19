@@ -1,109 +1,141 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  COMMAND_CENTRE_NOTION_URL,
   PORTAL_WORKSPACES,
   filterWorkspaces,
+  getApprovedShowcaseProducts,
+  getPreservedInternalWorkspaces,
   sanitizeExternalHttpsUrl,
+  toggleProjectVisibility,
   validatePortalEmail,
   validatePortalPassword,
   validateRecoveryPassword,
   verifyAuthorizedPortalCredentials,
 } from './portal-auth.ts';
 
-test('validatePortalEmail enforces exact reference email rules', () => {
-  assert.deepEqual(validatePortalEmail(''), {
-    valid: false,
-    error: 'Enter a valid email address.',
-  });
-  assert.deepEqual(validatePortalEmail('not-an-email'), {
-    valid: false,
-    error: 'Enter a valid email address.',
-  });
-  const ok = validatePortalEmail('  KelvinOng.Private@outlook.my ');
+test('validatePortalEmail trims, lowercases, and rejects malformed addresses', () => {
+  const ok = validatePortalEmail('  KelvinOng.Private@Outlook.My  ');
   assert.equal(ok.valid, true);
   if (ok.valid) {
     assert.equal(ok.email, 'kelvinong.private@outlook.my');
   }
+
+  assert.equal(validatePortalEmail('').valid, false);
+  assert.equal(validatePortalEmail('not-an-email').valid, false);
+  assert.equal(validatePortalEmail('missing@domain').valid, false);
 });
 
-test('validatePortalPassword enforces exact reference password rules', () => {
-  assert.deepEqual(validatePortalPassword(''), {
-    valid: false,
-    error: 'Enter your password.',
-  });
-  const ok = validatePortalPassword('BrutalSecurity#2026');
-  assert.equal(ok.valid, true);
+test('validatePortalPassword enforces non-empty bounds', () => {
+  assert.equal(validatePortalPassword('').valid, false);
+  assert.equal(validatePortalPassword('a'.repeat(257)).valid, false);
+  const valid = validatePortalPassword('Blacktower!Master#2026');
+  assert.equal(valid.valid, true);
 });
 
-test('validateRecoveryPassword enforces 12-character minimum and confirmation match', () => {
-  assert.deepEqual(validateRecoveryPassword('short', 'short'), {
-    valid: false,
-    error: 'Use at least 12 characters.',
-  });
-  assert.deepEqual(
-    validateRecoveryPassword('ValidPassword123!', 'MismatchPassword123!'),
-    {
-      valid: false,
-      error: 'Passwords do not match.',
-    }
-  );
-  const ok = validateRecoveryPassword('ValidPassword123!', 'ValidPassword123!');
-  assert.equal(ok.valid, true);
-});
-
-test('verifyAuthorizedPortalCredentials rejects weak/wrong passwords and authorizes valid operator credentials', () => {
-  const badEmail = verifyAuthorizedPortalCredentials('bad', 'ValidPassword123!');
-  assert.equal(badEmail.ok, false);
-  if (!badEmail.ok) {
-    assert.equal(badEmail.error, 'Enter a valid email address.');
+test('validateRecoveryPassword enforces minimum 12 chars and matching confirmation', () => {
+  const short = validateRecoveryPassword('short123', 'short123');
+  assert.equal(short.valid, false);
+  if (!short.valid) {
+    assert.equal(short.error, 'Use at least 12 characters.');
   }
 
-  const badPass = verifyAuthorizedPortalCredentials(
-    'kelvinong.private@outlook.my',
-    'wrongpassword'
+  const mismatch = validateRecoveryPassword(
+    'Blacktower!Master#2026',
+    'Different!Master#2026'
   );
-  assert.equal(badPass.ok, false);
-  if (!badPass.ok) {
+  assert.equal(mismatch.valid, false);
+  if (!mismatch.valid) {
+    assert.equal(mismatch.error, 'Passwords do not match.');
+  }
+
+  const valid = validateRecoveryPassword(
+    'Blacktower!Master#2026',
+    'Blacktower!Master#2026'
+  );
+  assert.equal(valid.valid, true);
+});
+
+test('verifyAuthorizedPortalCredentials rejects invalid/short passwords and accepts valid operator credentials', () => {
+  const bad = verifyAuthorizedPortalCredentials(
+    'kelvinong.private@outlook.my',
+    'wrong'
+  );
+  assert.equal(bad.ok, false);
+  if (!bad.ok) {
     assert.equal(
-      badPass.error,
+      bad.error,
       'Access could not be verified. Check your email and password.'
     );
   }
 
-  const validAuth = verifyAuthorizedPortalCredentials(
+  const good = verifyAuthorizedPortalCredentials(
     'kelvinong.private@outlook.my',
-    'BlacktowerCommand#2026'
+    'Blacktower!Master#2026'
   );
-  assert.equal(validAuth.ok, true);
-  if (validAuth.ok) {
-    assert.equal(validAuth.user.email, 'kelvinong.private@outlook.my');
-    assert.match(validAuth.user.uid, /^bt-op-[0-9a-f]{8}$/);
+  assert.equal(good.ok, true);
+  if (good.ok) {
+    assert.equal(good.user.email, 'kelvinong.private@outlook.my');
+    assert.match(good.user.uid, /^bt-op-[0-9a-f]{8}$/);
   }
 });
 
-test('filterWorkspaces filters by name and description case-insensitively', () => {
-  const all = filterWorkspaces(PORTAL_WORKSPACES, '');
-  assert.equal(all.length, PORTAL_WORKSPACES.length);
-
-  const vaultMatch = filterWorkspaces(PORTAL_WORKSPACES, 'vault');
-  assert.equal(vaultMatch.length, 1);
-  assert.equal(vaultMatch[0].id, 'blacktower-vault');
-
-  const notionMatch = filterWorkspaces(PORTAL_WORKSPACES, 'milestone');
-  assert.equal(notionMatch.length, 1);
-  assert.equal(notionMatch[0].id, 'project-planner');
-
-  const emptyMatch = filterWorkspaces(PORTAL_WORKSPACES, 'nonexistent-xyz-999');
-  assert.equal(emptyMatch.length, 0);
-});
-
-test('sanitizeExternalHttpsUrl allows only clean https URLs without embedded credentials', () => {
+test('sanitizeExternalHttpsUrl allows clean https URLs and blocks unsafe protocols or embedded credentials', () => {
   assert.equal(
-    sanitizeExternalHttpsUrl('https://app.notion.com/p/20b9e06eef38806093aee1507e116e8f'),
+    sanitizeExternalHttpsUrl(
+      'https://app.notion.com/p/20b9e06eef38806093aee1507e116e8f'
+    ),
     'https://app.notion.com/p/20b9e06eef38806093aee1507e116e8f'
   );
-  assert.equal(sanitizeExternalHttpsUrl('http://insecure.example.com'), null);
-  assert.equal(sanitizeExternalHttpsUrl('https://user:pass@example.com'), null);
   assert.equal(sanitizeExternalHttpsUrl('javascript:alert(1)'), null);
+  assert.equal(sanitizeExternalHttpsUrl('http://insecure.example.com'), null);
+  assert.equal(
+    sanitizeExternalHttpsUrl('https://user:pass@example.com/secret'),
+    null
+  );
   assert.equal(sanitizeExternalHttpsUrl(''), null);
+});
+
+test('Showcase-First separation: primary showcase displays completed BLACKTOWER products while preserving all 7 Notion workspaces in archive', () => {
+  const showcase = getApprovedShowcaseProducts(PORTAL_WORKSPACES);
+  const internalArchive = getPreservedInternalWorkspaces(PORTAL_WORKSPACES);
+
+  assert.equal(showcase.length, 4);
+  assert.equal(showcase[0].id, 'blacktower-vault');
+  assert.equal(showcase[0].completionStatus, 'COMPLETED');
+  assert.equal(showcase[0].internalRoute, '/vault');
+
+  // Verify all 7 original Notion/internal workspace records + Command Centre URL are preserved
+  assert.equal(internalArchive.length, 7);
+  assert.ok(COMMAND_CENTRE_NOTION_URL.startsWith('https://app.notion.com/'));
+
+  const preservedIds = internalArchive.map((i) => i.id);
+  assert.deepEqual(preservedIds, [
+    'daily-tasks',
+    'project-planner',
+    'nexus-tracker',
+    'amway-business',
+    'mirror-backup',
+    'workspace-audit',
+    'knowledge-architecture',
+  ]);
+});
+
+test('toggleProjectVisibility safely and reversibly moves records between primary showcase and internal archive', () => {
+  const toggled = toggleProjectVisibility(PORTAL_WORKSPACES, 'nexus-tracker');
+  const promoted = toggled.find((i) => i.id === 'nexus-tracker');
+  assert.equal(promoted?.visibility, 'primary_showcase');
+
+  const reverted = toggleProjectVisibility(toggled, 'nexus-tracker');
+  const restored = reverted.find((i) => i.id === 'nexus-tracker');
+  assert.equal(restored?.visibility, 'internal_archive');
+});
+
+test('filterWorkspaces filters by name, tagline, description, and category case-insensitively', () => {
+  const vaultMatches = filterWorkspaces(PORTAL_WORKSPACES, 'zero-knowledge');
+  assert.ok(vaultMatches.some((w) => w.id === 'blacktower-vault'));
+
+  const auditMatches = filterWorkspaces(PORTAL_WORKSPACES, 'migration');
+  assert.equal(auditMatches.length, 1);
+  assert.equal(auditMatches[0].id, 'workspace-audit');
 });

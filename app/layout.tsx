@@ -24,20 +24,14 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'BLACKTOWER VAULT™ — Zero-Knowledge Personal Vault',
+  title: 'BLACKTOWER OS™ — Ecosystem Showcase & Zero-Knowledge Gateway',
   description:
-    'Security-first, zero-knowledge personal password and digital identity vault with four-tier AES-256-GCM & Argon2id key hierarchy.',
+    'BLACKTOWER OS™ is the official product showcase and private gateway for the BLACKTOWER™ ecosystem, featuring BLACKTOWER VAULT™.',
   openGraph: {
-    title: 'BLACKTOWER VAULT™ — Zero-Knowledge Personal Vault',
+    title: 'BLACKTOWER OS™ — Ecosystem Showcase & Zero-Knowledge Gateway',
     description:
-      'Security-first, zero-knowledge personal password and digital identity vault with four-tier AES-256-GCM & Argon2id key hierarchy.',
+      'Official product showcase and private gateway for completed BLACKTOWER™ security applications and zero-knowledge infrastructure.',
     type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'BLACKTOWER VAULT™ — Zero-Knowledge Personal Vault',
-    description:
-      'Security-first, zero-knowledge personal password and digital identity vault with four-tier AES-256-GCM & Argon2id key hierarchy.',
   },
 };
 
@@ -49,12 +43,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${spaceGrotesk.variable} ${manrope.variable} ${ibmPlexMono.variable}`}
+      className={`${spaceGrotesk.variable} ${manrope.variable} ${ibmPlexMono.variable} dark`}
     >
-      <body
-        suppressHydrationWarning
-        className="bg-[oklch(10.5%_0.003_160)] text-[oklch(95.5%_0.004_150)] antialiased selection:bg-[oklch(87.2%_0.283_140.5)] selection:text-[oklch(12%_0.02_145)] font-[family-name:var(--font-sans)] min-h-screen"
-      >
+      <body className="bg-[#0B0F17] text-slate-100 font-[family-name:var(--font-sans)] antialiased selection:bg-sky-400 selection:text-slate-950 min-h-svh">
         {children}
       </body>
     </html>

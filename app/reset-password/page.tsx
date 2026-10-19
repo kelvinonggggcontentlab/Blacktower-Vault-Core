@@ -64,18 +64,18 @@ export default function BlacktowerResetPasswordPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-svh bg-[oklch(10.5%_0.003_160)] text-[oklch(95.5%_0.004_150)]">
-      <header className="border-b border-[oklch(29%_0.008_160)] flex items-center justify-between h-[76px] px-[6%] min-[761px]:h-[92px] min-[761px]:px-[5%]">
-        <BlacktowerBrand />
+    <div className="flex flex-col min-h-svh bg-[#0B0F17] text-slate-100">
+      <header className="border-b border-slate-800/80 flex items-center justify-between h-[72px] px-4 sm:px-8">
+        <BlacktowerBrand subtitle="ACCESS RECOVERY" />
       </header>
 
       <main className="flex flex-1 items-center justify-center px-6 py-20">
-        <section className="w-full max-w-sm rounded-[8px] border border-[oklch(29%_0.008_160)] border-t-[color-mix(in_oklch,oklch(87.2%_0.283_140.5)_25%,oklch(29%_0.008_160))] bg-[oklch(16%_0.005_160/0.88)] bg-[linear-gradient(140deg,oklch(38%_0.02_150/0.09),transparent_48%)] backdrop-blur-[20px] shadow-[0_28px_70px_oklch(0%_0_0/0.25),inset_0_1px_0_oklch(100%_0_0/0.03)] pt-[29px] px-[29px] pb-8">
-          <span className="w-[44px] h-[44px] mb-6 rounded-[6px] border border-[oklch(29%_0.008_160)] bg-[oklch(87.2%_0.283_140.5/0.04)] text-[oklch(87.2%_0.283_140.5)] grid place-items-center">
-            <LockKeyhole size={22} />
+        <section className="w-full max-w-md rounded-xl border border-slate-800 border-t-sky-500/40 bg-[#111827] shadow-[0_24px_60px_rgba(0,0,0,0.45)] p-7">
+          <span className="w-11 h-11 mb-5 rounded-lg border border-slate-800 bg-sky-500/10 text-sky-400 grid place-items-center">
+            <LockKeyhole size={20} />
           </span>
 
-          <h2 className="font-[family-name:var(--font-display)] m-0 text-[26px] font-medium text-[oklch(95.5%_0.004_150)]">
+          <h2 className="font-[family-name:var(--font-display)] m-0 text-2xl font-bold text-white">
             Restore access.
           </h2>
 
@@ -84,12 +84,12 @@ export default function BlacktowerResetPasswordPage() {
               onSubmit={handleSubmit}
               noValidate
               aria-busy={submitting}
-              className="mt-[30px]"
+              className="mt-6"
             >
               <fieldset disabled={submitting}>
                 <label
                   htmlFor="new-password"
-                  className="font-[family-name:var(--font-mono)] text-[9px] font-normal text-[oklch(64%_0.006_160)] block"
+                  className="font-[family-name:var(--font-mono)] text-[10px] font-medium text-slate-300 tracking-wider block"
                 >
                   NEW PASSWORD
                 </label>
@@ -101,15 +101,15 @@ export default function BlacktowerResetPasswordPage() {
                   required
                   minLength={12}
                   maxLength={256}
-                  className="flex w-full h-[50px] mt-3 pl-3 pr-3 py-1 rounded-[5px] border border-[oklch(30%_0.006_160)] bg-[oklch(10.5%_0.003_160/0.63)] text-[11px] text-[oklch(95.5%_0.004_150)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[oklch(87.2%_0.283_140.5)]"
+                  className="flex w-full h-11 mt-2 px-3 py-2 rounded-lg border border-slate-800 bg-slate-950 text-xs text-white focus-visible:outline-none focus-visible:border-sky-500"
                 />
-                <p className="text-[oklch(64%_0.006_160)] mt-[11px] mb-[20px] text-[10px] leading-[1.6]">
+                <p className="text-slate-400 mt-2 mb-4 text-xs">
                   Use at least 12 characters.
                 </p>
 
                 <label
                   htmlFor="confirm-password"
-                  className="font-[family-name:var(--font-mono)] text-[9px] font-normal text-[oklch(64%_0.006_160)] block"
+                  className="font-[family-name:var(--font-mono)] text-[10px] font-medium text-slate-300 tracking-wider block"
                 >
                   CONFIRM PASSWORD
                 </label>
@@ -121,13 +121,13 @@ export default function BlacktowerResetPasswordPage() {
                   required
                   minLength={12}
                   maxLength={256}
-                  className="flex w-full h-[50px] mt-3 pl-3 pr-3 py-1 rounded-[5px] border border-[oklch(30%_0.006_160)] bg-[oklch(10.5%_0.003_160/0.63)] text-[11px] text-[oklch(95.5%_0.004_150)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[oklch(87.2%_0.283_140.5)]"
+                  className="flex w-full h-11 mt-2 px-3 py-2 rounded-lg border border-slate-800 bg-slate-950 text-xs text-white focus-visible:outline-none focus-visible:border-sky-500"
                 />
 
                 {error && (
                   <p
                     role="alert"
-                    className="text-[oklch(72%_0.17_25)] mt-[11px] mb-[20px] text-[10px] leading-[1.6]"
+                    className="text-rose-300 bg-rose-950/60 border border-rose-800/80 rounded-lg px-3 py-2 mt-3 mb-4 text-xs"
                   >
                     {error}
                   </p>
@@ -136,7 +136,7 @@ export default function BlacktowerResetPasswordPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full h-[49px] mt-[25px] px-[18px] rounded-[5px] bg-[oklch(87.2%_0.283_140.5)] hover:bg-[color-mix(in_oklch,oklch(87.2%_0.283_140.5)_85%,oklch(95.5%_0.004_150))] text-[oklch(12%_0.02_145)] text-[11px] font-bold inline-flex items-center justify-center cursor-pointer transition-colors"
+                  className="w-full h-11 mt-6 px-4 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-semibold inline-flex items-center justify-center cursor-pointer transition-colors"
                 >
                   {submitting ? 'Updating password…' : 'Set new password'}
                 </button>
@@ -145,7 +145,7 @@ export default function BlacktowerResetPasswordPage() {
           ) : (
             <p
               role="status"
-              className="text-[oklch(64%_0.006_160)] mt-[8px] text-[11px] leading-[1.6]"
+              className="text-slate-400 mt-2 text-xs leading-relaxed"
             >
               {updated
                 ? 'Password updated. Sign in with your new password.'
@@ -157,7 +157,7 @@ export default function BlacktowerResetPasswordPage() {
 
           <Link
             href="/auth"
-            className="w-full h-9 mt-5 px-4 py-2 rounded-md inline-flex items-center justify-center text-[11px] font-medium text-[oklch(64%_0.006_160)] hover:bg-[oklch(24%_0.014_150)] hover:text-[oklch(95.5%_0.004_150)] transition-colors"
+            className="w-full h-9 mt-5 px-4 py-2 rounded-lg inline-flex items-center justify-center text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
           >
             Back to sign in
           </Link>

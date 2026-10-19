@@ -147,20 +147,20 @@ export default function AccessPanel({
   return (
     <section
       aria-labelledby="access-title"
-      className="w-full max-w-[440px] min-[761px]:max-w-none justify-self-center rounded-[8px] border border-[oklch(29%_0.008_160)] border-t-[color-mix(in_oklch,oklch(87.2%_0.283_140.5)_25%,oklch(29%_0.008_160))] bg-[oklch(16%_0.005_160/0.88)] bg-[linear-gradient(140deg,oklch(38%_0.02_150/0.09),transparent_48%)] backdrop-blur-[20px] shadow-[0_28px_70px_oklch(0%_0_0/0.25),inset_0_1px_0_oklch(100%_0_0/0.03)] pt-[29px] px-[29px] max-[360px]:px-[23px] pb-0"
+      className="w-full max-w-[440px] min-[761px]:max-w-none justify-self-center rounded-xl border border-slate-800 border-t-sky-500/40 bg-[#111827]/95 backdrop-blur-xl shadow-[0_24px_60px_rgba(0,0,0,0.45)] pt-7 px-7 max-[360px]:px-5 pb-0"
     >
-      <div className="flex items-center justify-between mb-[26px]">
-        <span className="w-[44px] h-[44px] rounded-[6px] border border-[oklch(29%_0.008_160)] bg-[oklch(87.2%_0.283_140.5/0.04)] text-[oklch(87.2%_0.283_140.5)] grid place-items-center">
-          <Fingerprint size={23} strokeWidth={1.5} />
+      <div className="flex items-center justify-between mb-6">
+        <span className="w-11 h-11 rounded-lg border border-slate-800 bg-sky-500/10 text-sky-400 grid place-items-center">
+          <Fingerprint size={22} strokeWidth={1.6} />
         </span>
-        <span className="font-[family-name:var(--font-mono)] text-[8px] font-normal text-[oklch(49%_0.007_160)]">
+        <span className="font-[family-name:var(--font-mono)] text-[10px] font-normal text-slate-400 tracking-wider">
           ACCESS POINT / 01
         </span>
       </div>
 
       <h2
         id="access-title"
-        className="font-[family-name:var(--font-display)] m-0 text-[26px] font-medium text-[oklch(95.5%_0.004_150)]"
+        className="font-[family-name:var(--font-display)] m-0 text-2xl font-bold text-white tracking-tight"
       >
         {user && !checking
           ? 'Access verified.'
@@ -168,31 +168,36 @@ export default function AccessPanel({
             ? 'Recover access.'
             : 'Welcome back.'}
       </h2>
-      <p className="text-[oklch(64%_0.006_160)] mt-[8px] text-[11px]">
+      <p className="text-slate-400 mt-1.5 text-xs">
         {isRecovering
           ? 'A fresh start. The same private world.'
-          : 'Your command center awaits.'}
+          : 'Authorized gateway to the BLACKTOWER™ product showcase.'}
       </p>
 
       {user && !checking ? (
-        <div className="mt-[30px]">
-          <p className="text-[oklch(64%_0.006_160)] mt-[8px] text-[11px] break-all">
-            {user.email}
-          </p>
+        <div className="mt-6">
+          <div className="p-3 rounded-lg bg-slate-950 border border-slate-800">
+            <div className="text-[10px] font-[family-name:var(--font-mono)] text-sky-400 uppercase tracking-wider">
+              Authenticated Operator
+            </div>
+            <p className="text-slate-200 mt-1 text-xs font-mono break-all">
+              {user.email}
+            </p>
+          </div>
           <Link
             href="/command"
-            className="w-full h-[49px] mt-[25px] px-[18px] rounded-[5px] bg-[oklch(87.2%_0.283_140.5)] hover:bg-[color-mix(in_oklch,oklch(87.2%_0.283_140.5)_85%,oklch(95.5%_0.004_150))] text-[oklch(12%_0.02_145)] text-[11px] font-bold inline-flex items-center justify-between cursor-pointer transition-colors whitespace-nowrap"
+            className="w-full h-11 mt-5 px-4 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-semibold inline-flex items-center justify-between cursor-pointer transition-colors whitespace-nowrap"
           >
-            <span>Open command portal</span>
-            <ArrowRight size={17} />
+            <span>Open product showcase</span>
+            <ArrowRight size={16} />
           </Link>
           <button
             type="button"
             disabled={isSubmitting}
             onClick={handleSignOut}
-            className="w-full h-9 my-5 px-4 py-2 rounded-md inline-flex items-center justify-center gap-2 text-[11px] font-medium text-[oklch(64%_0.006_160)] hover:bg-[oklch(24%_0.014_150)] hover:text-[oklch(95.5%_0.004_150)] transition-colors cursor-pointer whitespace-nowrap"
+            className="w-full h-9 my-4 px-4 py-2 rounded-lg inline-flex items-center justify-center gap-2 text-xs font-medium text-slate-400 hover:bg-slate-800/80 hover:text-white transition-colors cursor-pointer whitespace-nowrap"
           >
-            <LogOut size={16} />
+            <LogOut size={15} />
             <span>Sign out</span>
           </button>
         </div>
@@ -201,20 +206,20 @@ export default function AccessPanel({
           onSubmit={handleSubmit}
           noValidate
           aria-busy={isSubmitting}
-          className="mt-[30px]"
+          className="mt-6"
         >
           <fieldset disabled={isSubmitting} className="min-w-0">
             <label
               htmlFor="access-email"
-              className="font-[family-name:var(--font-mono)] text-[9px] font-normal text-[oklch(64%_0.006_160)] block"
+              className="font-[family-name:var(--font-mono)] text-[10px] font-medium text-slate-300 tracking-wider block"
             >
               EMAIL ADDRESS
             </label>
-            <div className="mt-[10px] relative">
+            <div className="mt-2 relative">
               <Mail
                 size={16}
                 aria-hidden="true"
-                className="text-[oklch(49%_0.007_160)] absolute top-[17px] left-[14px] pointer-events-none"
+                className="text-slate-500 absolute top-3.5 left-3.5 pointer-events-none"
               />
               <input
                 id="access-email"
@@ -225,32 +230,32 @@ export default function AccessPanel({
                 required
                 maxLength={254}
                 aria-describedby={error ? 'access-error' : undefined}
-                className="flex w-full h-[50px] pl-[41px] pr-3 py-1 rounded-[5px] border border-[oklch(30%_0.006_160)] bg-[oklch(10.5%_0.003_160/0.63)] text-[11px] text-[oklch(95.5%_0.004_150)] placeholder:text-[oklch(49%_0.007_160)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[oklch(87.2%_0.283_140.5)] transition-colors"
+                className="flex w-full h-11 pl-10 pr-3 py-2 rounded-lg border border-slate-800 bg-slate-950 text-xs text-white placeholder:text-slate-500 focus-visible:outline-none focus-visible:border-sky-500 transition-colors"
               />
             </div>
 
             {!isRecovering && (
               <>
-                <div className="flex items-center justify-between mt-[23px]">
+                <div className="flex items-center justify-between mt-5">
                   <label
                     htmlFor="access-password"
-                    className="font-[family-name:var(--font-mono)] text-[9px] font-normal text-[oklch(64%_0.006_160)] block"
+                    className="font-[family-name:var(--font-mono)] text-[10px] font-medium text-slate-300 tracking-wider block"
                   >
                     PASSWORD
                   </label>
                   <button
                     type="button"
                     onClick={() => switchRecoverMode(true)}
-                    className="h-auto p-0 text-[10px] font-medium text-[oklch(64%_0.006_160)] hover:text-[oklch(87.2%_0.283_140.5)] underline-offset-4 hover:underline transition-colors cursor-pointer whitespace-nowrap"
+                    className="h-auto p-0 text-xs font-medium text-slate-400 hover:text-sky-400 underline-offset-4 hover:underline transition-colors cursor-pointer whitespace-nowrap"
                   >
                     Forgot password?
                   </button>
                 </div>
-                <div className="mt-[10px] relative">
+                <div className="mt-2 relative">
                   <LockKeyhole
                     size={16}
                     aria-hidden="true"
-                    className="text-[oklch(49%_0.007_160)] absolute top-[17px] left-[14px] pointer-events-none"
+                    className="text-slate-500 absolute top-3.5 left-3.5 pointer-events-none"
                   />
                   <input
                     id="access-password"
@@ -261,16 +266,16 @@ export default function AccessPanel({
                     required
                     maxLength={256}
                     aria-describedby={error ? 'access-error' : undefined}
-                    className="flex w-full h-[50px] pl-[41px] pr-[45px] py-1 rounded-[5px] border border-[oklch(30%_0.006_160)] bg-[oklch(10.5%_0.003_160/0.63)] text-[11px] text-[oklch(95.5%_0.004_150)] placeholder:text-[oklch(49%_0.007_160)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[oklch(87.2%_0.283_140.5)] transition-colors"
+                    className="flex w-full h-11 pl-10 pr-11 py-2 rounded-lg border border-slate-800 bg-slate-950 text-xs text-white placeholder:text-slate-500 focus-visible:outline-none focus-visible:border-sky-500 transition-colors"
                   />
                   <button
                     type="button"
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                     aria-pressed={showPassword}
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute top-[7px] right-[7px] h-9 w-9 rounded-md inline-flex items-center justify-center text-[oklch(64%_0.006_160)] hover:bg-[oklch(24%_0.014_150)] hover:text-[oklch(95.5%_0.004_150)] transition-colors cursor-pointer"
+                    className="absolute top-1.5 right-1.5 h-8 w-8 rounded-md inline-flex items-center justify-center text-slate-400 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer"
                   >
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
               </>
@@ -280,7 +285,7 @@ export default function AccessPanel({
               <p
                 id="access-error"
                 role="alert"
-                className="text-[oklch(72%_0.17_25)] mt-[11px] mb-[20px] text-[10px] leading-[1.6]"
+                className="text-rose-300 bg-rose-950/60 border border-rose-800/80 rounded-lg px-3 py-2 mt-3 mb-4 text-xs leading-relaxed"
               >
                 {error}
               </p>
@@ -289,7 +294,7 @@ export default function AccessPanel({
             {recoverySent && (
               <p
                 role="status"
-                className="text-[oklch(64%_0.006_160)] mt-[11px] mb-[20px] text-[10px] leading-[1.6]"
+                className="text-sky-300 bg-sky-950/50 border border-sky-800/70 rounded-lg px-3 py-2 mt-3 mb-4 text-xs leading-relaxed"
               >
                 If this email belongs to an authorized account, a recovery link
                 will arrive shortly.
@@ -299,25 +304,25 @@ export default function AccessPanel({
             <button
               type="submit"
               disabled={isSubmitting || recoverySent}
-              className="w-full h-[49px] mt-[25px] px-[18px] rounded-[5px] bg-[oklch(87.2%_0.283_140.5)] hover:bg-[color-mix(in_oklch,oklch(87.2%_0.283_140.5)_85%,oklch(95.5%_0.004_150))] text-[oklch(12%_0.02_145)] text-[11px] font-bold inline-flex items-center justify-between cursor-pointer transition-colors disabled:opacity-65 whitespace-nowrap"
+              className="w-full h-11 mt-6 px-4 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-semibold inline-flex items-center justify-between cursor-pointer transition-colors disabled:opacity-60 whitespace-nowrap"
             >
               <span>
                 {isSubmitting
-                  ? 'Please wait…'
+                  ? 'Verifying credentials…'
                   : isRecovering
                     ? 'Send recovery link'
                     : 'Enter command portal'}
               </span>
               {isSubmitting ? (
-                <LoaderCircle size={17} className="animate-spin" />
+                <LoaderCircle size={16} className="animate-spin" />
               ) : (
-                <ArrowRight size={17} />
+                <ArrowRight size={16} />
               )}
             </button>
 
             <p
               role="status"
-              className="text-[oklch(64%_0.006_160)] mt-[11px] mb-[20px] text-[10px] leading-[1.6]"
+              className="text-slate-400 mt-3 mb-5 text-[11px] leading-relaxed"
             >
               Authorized accounts only. No public registration.
             </p>
@@ -326,9 +331,9 @@ export default function AccessPanel({
               <button
                 type="button"
                 onClick={() => switchRecoverMode(false)}
-                className="w-full h-9 mb-4 px-4 py-2 rounded-md inline-flex items-center justify-center gap-2 text-[11px] font-medium text-[oklch(64%_0.006_160)] hover:bg-[oklch(24%_0.014_150)] hover:text-[oklch(95.5%_0.004_150)] transition-colors cursor-pointer whitespace-nowrap"
+                className="w-full h-9 mb-4 px-4 py-2 rounded-lg inline-flex items-center justify-center gap-2 text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer whitespace-nowrap"
               >
-                <ArrowLeft size={16} />
+                <ArrowLeft size={15} />
                 <span>Back to sign in</span>
               </button>
             )}
@@ -336,8 +341,8 @@ export default function AccessPanel({
         </form>
       )}
 
-      <div className="border-t border-[oklch(29%_0.008_160)] font-[family-name:var(--font-mono)] text-[oklch(49%_0.007_160)] flex items-center justify-center gap-[8px] -mx-[29px] max-[360px]:-mx-[23px] px-[29px] max-[360px]:px-[23px] py-[18px] text-[7px] font-normal">
-        <ShieldCheck size={15} />
+      <div className="border-t border-slate-800/80 font-[family-name:var(--font-mono)] text-slate-400 flex items-center justify-center gap-2 -mx-7 max-[360px]:-mx-5 px-7 max-[360px]:px-5 py-4 text-[10px] font-normal tracking-wider">
+        <ShieldCheck size={14} className="text-sky-400" />
         <span>PRIVATE ACCESS. BY INVITATION ONLY.</span>
       </div>
     </section>

@@ -3,26 +3,33 @@
 import React from 'react';
 import Link from 'next/link';
 
-export function BlacktowerBrand() {
+export function BlacktowerBrand({ subtitle }: { subtitle?: string }) {
   return (
     <Link
       href="/"
       aria-label="BLACKTOWER home"
-      className="font-[family-name:var(--font-display)] text-[oklch(95.5%_0.004_150)] flex items-center gap-[12px] text-[16px] min-[761px]:text-[19px] font-bold shrink-0 whitespace-nowrap"
+      className="font-[family-name:var(--font-display)] text-white flex items-center gap-3 text-base sm:text-lg font-bold tracking-tight shrink-0 whitespace-nowrap group"
     >
       <span
         aria-hidden="true"
-        className="flex items-end gap-[3px] w-[24px] h-[27px] shrink-0"
+        className="flex items-end gap-[3px] w-[22px] h-[24px] shrink-0"
       >
-        <i className="bg-[oklch(95.5%_0.004_150)] w-[5px] h-[21px] block" />
-        <i className="bg-[oklch(87.2%_0.283_140.5)] w-[5px] h-[27px] block" />
-        <i className="bg-[oklch(95.5%_0.004_150)] w-[5px] h-[24px] block" />
+        <i className="bg-slate-200 group-hover:bg-white transition-colors w-[4px] h-[18px] block rounded-[1px]" />
+        <i className="bg-sky-400 w-[4px] h-[24px] block rounded-[1px]" />
+        <i className="bg-slate-200 group-hover:bg-white transition-colors w-[4px] h-[21px] block rounded-[1px]" />
       </span>
-      <span>
-        BLACKTOWER
-        <span className="font-[family-name:var(--font-sans)] align-super ml-[2px] text-[10px]">
-          ™
+      <span className="flex items-center gap-2">
+        <span>
+          BLACKTOWER
+          <span className="font-[family-name:var(--font-sans)] align-super ml-[2px] text-[10px] text-sky-400">
+            ™
+          </span>
         </span>
+        {subtitle && (
+          <span className="hidden sm:inline-block text-[11px] font-[family-name:var(--font-mono)] font-normal text-slate-400 border-l border-slate-800 pl-2.5 tracking-wider">
+            {subtitle}
+          </span>
+        )}
       </span>
     </Link>
   );
@@ -30,19 +37,20 @@ export function BlacktowerBrand() {
 
 export function BlacktowerFooter() {
   return (
-    <footer className="mt-auto flex flex-wrap items-center justify-between gap-[23px] py-[24px] px-[6%] min-[761px]:py-[29px] min-[761px]:px-[5%] font-[family-name:var(--font-mono)] text-[7px] min-[761px]:text-[8px] font-normal text-[oklch(49%_0.007_160)]">
+    <footer className="mt-auto border-t border-slate-800/80 bg-[#0B0F17] flex flex-wrap items-center justify-between gap-4 py-5 px-4 sm:px-6 font-[family-name:var(--font-mono)] text-[10px] font-normal text-slate-400">
       <span>
-        © 2026 BLACKTOWER™ <span className="mx-[10px]">/</span> ALL RIGHTS
-        RESERVED
+        © 2026 BLACKTOWER™ <span className="mx-2 text-slate-700">/</span> ALL
+        RIGHTS RESERVED
       </span>
-      <span className="flex items-center gap-[9px] text-[7px] ml-auto min-[761px]:ml-0">
-        POWERED BY{' '}
-        <strong className="font-[family-name:var(--font-display)] text-[oklch(64%_0.006_160)] text-[13px] font-bold">
-          NEXUS
+      <span className="flex items-center gap-2 text-[10px] ml-auto sm:ml-0">
+        <span>SIMPLE OUTSIDE. BRUTAL SECURITY INSIDE.</span>
+        <span className="text-slate-700">·</span>
+        <strong className="font-[family-name:var(--font-display)] text-slate-200 text-xs font-bold">
+          BLACKTOWER OS™
         </strong>
         <span
           aria-hidden="true"
-          className="text-[oklch(87.2%_0.283_140.5)] ml-[4px] text-[18px] leading-none"
+          className="text-sky-400 ml-0.5 text-sm leading-none"
         >
           ✳
         </span>
